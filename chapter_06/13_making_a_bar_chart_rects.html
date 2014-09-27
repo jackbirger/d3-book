@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Making a bar chart with SVG rects</title>
-		<script type="text/javascript" src="../d3/d3.v3.js"></script>
+		<script type="text/javascript" src="../../d3.js"></script>
 		<style type="text/css">
 			/* No style rules here yet */		
 		</style>
@@ -28,7 +28,9 @@
 			   .data(dataset)
 			   .enter()
 			   .append("rect")
-			   .attr("x", 0)
+               .attr("x", function(d, i){
+                     return i * 21;
+                     })
 			   .attr("y", 0)
 			   .attr("width", 20)
 			   .attr("height", 100);

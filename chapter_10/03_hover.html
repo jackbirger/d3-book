@@ -3,12 +3,27 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: A simple CSS-only hover effect</title>
-		<script type="text/javascript" src="../d3/d3.v3.js"></script>
+		<script type="text/javascript" src="../../d3.js"></script>
 		<style type="text/css">
+            
+            
+            text {
+                pointer-events: none;
+            }
+        
+        /*
+        rect {
+            -moz-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+
 
 			rect:hover {
 				fill: orange;
 			}
+         */
 
 		</style>
 	</head>
@@ -53,7 +68,25 @@
 			   })
 			   .attr("fill", function(d) {
 					return "rgb(0, 0, " + (d * 10) + ")";
-			   });
+			   })
+               .on("click", function() {
+                   sortBars();
+               });
+               
+               
+               /*
+               .on("mouseover", function() {
+                   d3.select(this)
+                     .attr("fill", "orange");
+                })
+               .on("mouseout", function(d) {
+                        d3.select(this)
+                          .transition()
+                          .duration(500)
+                          .attr("fill", "rgb(0, 0, " + (d * 10) + ")");
+                });
+                
+                */
 
 			//Create labels
 			svg.selectAll("text")
@@ -73,6 +106,22 @@
 			   .attr("font-family", "sans-serif")
 			   .attr("font-size", "11px")
 			   .attr("fill", "white");
+               
+               
+               //Define sort function
+               var sortBars = function() {
+                   
+                   svg.selectAll("rect")
+                   .sort(function(a,b) {
+                         return d3.ascending(a, b);
+                         })
+                         .transition()
+                         .duration(1000)
+                         .attr("x", function(d, i) {
+                               return xScale(i);
+                         });
+                         
+               };
 			
 		</script>
 	</body>

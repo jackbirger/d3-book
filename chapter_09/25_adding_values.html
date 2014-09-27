@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Adding values and elements to a chart</title>
-		<script type="text/javascript" src="../d3/d3.v3.js"></script>
+		<script type="text/javascript" src="../../d3.js"></script>
 		<style type="text/css">
 			/* No style rules here yet */
 		</style>
@@ -129,6 +129,22 @@
 					//
 					//Exercise: Modify this code to add a new label each time a new bar is added!
 					//
+                    
+                    bars.enter()
+                        .append("text")
+                        .text(function(d) {
+                          return d;
+                        })
+                        .attr("text-anchor", "middle")
+                        .attr("x", w)
+                        .attr("y", function(d) {
+                            return h - yScale(d) + 14;
+                              })
+                        .attr("font-family", "sans-serif")
+                        .attr("font-size", "11px")
+                        .attr("fill", "white");
+                    
+                    
 					svg.selectAll("text")
 					   .data(dataset)
 					   .transition()
@@ -142,6 +158,7 @@
 					   .attr("y", function(d) {
 							return h - yScale(d) + 14;
 					   });
+      
 
 				});
 

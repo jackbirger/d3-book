@@ -3,9 +3,13 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Sorting visual elements</title>
-		<script type="text/javascript" src="../d3/d3.v3.js"></script>
+		<script type="text/javascript" src="../../d3.js"></script>
 		<style type="text/css">
-			/* No style rules here yet */		
+			
+            rect:hover {
+                fill: orange;
+            }
+            
 		</style>
 	</head>
 	<body>
@@ -50,7 +54,7 @@
 			   .attr("fill", function(d) {
 					return "rgb(0, 0, " + (d * 10) + ")";
 			   })
-			   .on("mouseover", function() {
+/*			   .on("mouseover", function() {
 			   		d3.select(this)
 			   			.attr("fill", "orange");
 			   })
@@ -59,9 +63,10 @@
 				   		.transition()
 				   		.duration(250)
 						.attr("fill", "rgb(0, 0, " + (d * 10) + ")");
-			   })
+*/			//   })
 			   .on("click", function() {
 			   		sortBars();
+                    sortLabels();
 			   });
 
 			//Create labels
@@ -82,6 +87,7 @@
 			   .attr("font-family", "sans-serif")
 			   .attr("font-size", "11px")
 			   .attr("fill", "white");
+
 			
 			//Define sort function
 			var sortBars = function() {
@@ -95,8 +101,26 @@
 				   .attr("x", function(d, i) {
 				   		return xScale(i);
 				   });
+            }
+        
 
-			};			
+            //Define sort function
+            var sortLabels = function() {
+                console.log("made");
+    
+            svg.selectAll("text")
+               .sort(function(a, b) {
+                     return d3.ascending(a, b);
+                     })
+               .transition()
+               .duration(1000)
+               .attr("x", function(d, i) {
+                      return xScale(i) + xScale.rangeBand() / 2;
+               });
+           
+            }
+        
+        
 			
 		</script>
 	</body>
